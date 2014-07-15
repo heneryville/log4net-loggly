@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Newtonsoft.Json;
 using log4net.Core;
 using Newtonsoft.Json.Linq;
 
@@ -43,7 +44,7 @@ namespace log4net.loggly
          jobject.Add("machine", Environment.MachineName);
          jobject.Add("process", _currentProcess.ProcessName);
          jobject.Add("thread", loggingEvent.ThreadName);
-         jobject.Add("message", loggingEvent.MessageObject.ToString());
+          jobject.Add("message", JObject.FromObject(loggingEvent.MessageObject));
          jobject.Add("ex", exceptionString);
          return jobject;
       }
